@@ -1,52 +1,37 @@
 #!/bin/bash
-# task number 2.2 calculator
-function calculator {
-	case "$2" in
-	"sum")
-		echo $(($3 + $4))
-	;;
-	"sub")
-		echo $(($3 - $4))
-	;;
-	"mul")
-		echo $(($3 * $4))
-	;;
-	"div")
-	echo $(($3 / $4))
-	;;
-	esac
-}
 
-# task number 2.3 search
-function search {
-	echo | grep -r "$3" "$2"
-}
-
-# task number 2.4 reverse
-function reverse {
-	sort -r $2 > $3
-	cat $3
-}
-
-# task number 2.5 string lenght
-function strlen {
-	expr length "$2"
-}
-
-
-
-case "$1" in
+case $1 in
 "calc")
-	calculator "$@"
+	source ./calculator.sh
+	operation=$2
+	arg1=$3
+	arg2=$4
+	calculator "$operation" "$arg1" "$arg2"
 ;;
 "search")
-	search "$@"
+	source ./search.sh
+	file=$2
+	reg=$3
+	search "$file" "$reg"
 ;;
 "reverse")
-	reverse "$@"
+	source ./reverse.sh
+	file1=$2
+	file2=$3
+	reverse "$file1" "$file2"
 ;;
 "strlen")
-	strlen "$@"
+	source ./strlen.sh
+	str=$2
+	strlen "$str"
+;;
+"log")
+	source ./log.sh
+	log
+;;
+"interactive")
+	source ./interactive.sh
+	interactive
 ;;
 *)
 	echo "wrong!"
