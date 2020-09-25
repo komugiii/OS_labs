@@ -2,10 +2,6 @@
 # task number 2.2 calculator
 
 function calculator {
-	if ! [ $# == 2 ]
-	then
-	exit_lab -2
-	fi
 	reg='^[+-]?[0-9]+$'
 	if ! [[ $2 =~ $reg && $3 =~ $reg ]]
 	then
