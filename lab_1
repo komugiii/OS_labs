@@ -1,7 +1,35 @@
 #!/bin/bash
 
+function exit_lab() {
+	if [ $# == 0 ]
+	then
+	exit 0
+	fi
+	case $1 in
+	0)
+		exit 0
+	;;
+	-1)
+		echo "критическая ошибка, отсутсвует файл" >&2
+		exit 0
+	;;
+	-2)
+		echo "критическая ошибка, не хваттает аргумента" >&2
+		exit 0
+	;;
+	*)
+		echo "нет такого кода критической ошибки" >&2
+		exit 0
+	;;
+	esac
+}
+
 case $1 in
 "calc")
+	if ! [ -f "calculator.sh" ]
+	then
+	exit_lab -1
+	fi
 	source ./calculator.sh
 	operation=$2
 	arg1=$3
@@ -9,18 +37,30 @@ case $1 in
 	calculator "$operation" "$arg1" "$arg2"
 ;;
 "search")
+	if ! [ -f "search.sh" ]
+	then
+	exit_lab -1
+	fi
 	source ./search.sh
 	file=$2
 	reg=$3
 	search "$file" "$reg"
 ;;
 "reverse")
+	if ! [ -f "reverse.sh" ]
+	then
+	exit_lab -1
+	fi
 	source ./reverse.sh
 	file1=$2
 	file2=$3
 	reverse "$file1" "$file2"
 ;;
 "strlen")
+	if ! [ -f "strlen.sh" ]
+	then
+	exit_lab -1
+	fi
 	source ./strlen.sh
 	str=$2
 	strlen "$str"
@@ -30,10 +70,25 @@ case $1 in
 	log
 ;;
 "interactive")
+	if ! [ -f "interactive.sh" ]
+	then
+	exit_lab -1
+	fi
 	source ./interactive.sh
 	interactive
 ;;
+"help")
+	if ! [ -f "help.sh" ]
+	then
+	exit_lab -1
+	fi
+	source ./help.sh
+	help
+;;
+"exit")
+	exit_lab "$2"
+;;
 *)
-	echo "wrong!"
+	echo "вы ввели неверно первый параметр" >&2
 ;;
 esac
