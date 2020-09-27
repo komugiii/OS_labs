@@ -14,6 +14,18 @@ function interactive {
 	fi
 	echo "введите операцию и два числа с которыми вы хотите эту операцию проделать"
 	read arg1 arg2 arg3
+	reg='^[+-]?[0-9]+$'
+	if ! [[ $arg2 =~ $reg && $arg3 =~ $reg ]]
+	then
+	echo "один из аргументов не является целым чилом"
+	interactive
+	fi
+	reg2='^[+-]?[0]+$'
+	if [[ $arg1 == "div" && $arg3 =~ $reg2 ]]
+	then
+	echo "деление на ноль"
+	interactive
+	fi
 	source ./calculator.sh
 	calculator "$arg1" "$arg2" "$arg3"
 	interactive
@@ -38,6 +50,11 @@ function interactive {
 	fi
 	echo "введите два имени файла"
 	read arg1 arg2
+	if [ $arg1 == $arg2 ]
+	then
+	echo "один и тот же файл" >&2
+	interactive
+	fi
 	source ./reverse.sh
 	reverse "$arg1" "$arg2"
 	interactive
@@ -75,8 +92,9 @@ function interactive {
 	interactive
 	;;
 	"f")
-	exit 0
-	interactive
+	echo "введите код возврата для exit"
+	read arg
+	exit_lab "$arg"
 	;;
 	esac
 }

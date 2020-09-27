@@ -2,7 +2,7 @@
 
 # task number 2.4 reverce
 function reverse {
-        if ! [ -f "$1"]
+        if ! [ -f "$1" ]
 	then
 	echo "первый файл отсутствует!" >&2
 	fi

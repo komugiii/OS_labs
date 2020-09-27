@@ -2,12 +2,6 @@
 # task number 2.2 calculator
 
 function calculator {
-	reg='^[+-]?[0-9]+$'
-	if ! [[ $2 =~ $reg && $3 =~ $reg ]]
-	then
-	echo "один из введенных параметров не является целым числом!" >&2
-	exit 0
-	fi
 	case $1 in
 	"sum")
 		result=$[ $2 + $3 ]
@@ -22,11 +16,6 @@ function calculator {
 		echo $result
 	;;
 	"div")
-		if [ $3 == 0 ]
-		then
-		echo "на ноль делить нельзя!" >&2
-		exit 0
-		fi
 		result=$[ $2 / $3 ]
 		echo $result
 	;;

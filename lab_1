@@ -7,15 +7,27 @@ function exit_lab() {
 	;;
 	-1)
 		echo "критическая ошибка, отсутсвует файл" >&2
-		exit 0
+		exit -1
 	;;
 	-2)
 		echo "критическая ошибка, неверное число аргументов" >&2
-		exit 0
+		exit -2
+	;;
+	-3)
+		echo "критическая ошибка, введено не целое число" >&2
+		exit -3
+	;;
+
+	-4)
+		echo "критическая ошибка, деление а ноль" >&2
+		exit -4
+	;;
+	-5)
+		echo "один и тот же файл!" >&2
+		exit -5
 	;;
 	*)
-		echo "нет такого кода критической ошибки" >&2
-		exit 0
+		exit $1
 	;;
 	esac
 }
@@ -29,6 +41,16 @@ case $1 in
 	if ! [ $# == 4 ]
 	then
 	exit_lab -2
+	fi
+	reg='^[+-]?[0-9]+$'
+	if ! [[ $3 =~ $reg && $4 =~ $reg ]]
+	then
+	exit_lab -3
+	fi
+	reg2='^[+-]?[0]+$'
+	if [[ $2 == "div" && $4 =~ $reg2 ]]
+	then
+	exit_lab -4
 	fi
 	source ./calculator.sh
 	operation=$2
@@ -62,6 +84,10 @@ case $1 in
 	source ./reverse.sh
 	file1=$2
 	file2=$3
+	if [ $file1 == $file2 ]
+	then
+	exit_lab -5
+	fi
 	reverse "$file1" "$file2"
 ;;
 "strlen")
