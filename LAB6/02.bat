@@ -1,0 +1,1 @@
+xcopy c:\Windows\explorer.exe \\DESKTOP-26R717L\temp\ /z

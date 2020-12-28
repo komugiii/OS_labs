@@ -1,0 +1,15 @@
+#задание первое
+mkdir C:\LAB6
+cd C:\LAB6
+systeminfo | findstr /B /C:"Название ОС" /C:"Версия ОС" > systeminfo.txt
+systeminfo | findstr /B /C:"Полный объем физической памяти" /C:"Доступная физическая память" > memoryinfo.txt
+mkdir C:\LAB6\TEST
+copy * TEST
+cd TEST
+type * > all.txt
+del memoryinfo.txt systeminfo.txt
+#задание второе
+hostname
+cd C:\LAB6
+mkdir temp
+net share temp=c:\lab6\temp /GRANT:Все,FULL

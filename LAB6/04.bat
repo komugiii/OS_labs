@@ -1,0 +1,1 @@
+fc query.txt query2.txt > diff.txt
