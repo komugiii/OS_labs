@@ -13,3 +13,13 @@ hostname
 cd C:\LAB6
 mkdir temp
 net share temp=c:\lab6\temp /GRANT:Все,FULL
+schtasks.exe /create /tn "task" /tr "c:\lab6\02.bat"" /sc minute /mo 1
+schtasks /query /tn "task"
+schtasks /end /tn "task"
+fc /b c:\windows\explorer.exe \\DESKTOP-26R717L\temp\explorer.exe
+schtasks /run /tn "task"
+#задания третье
+sc query > query.txt
+#задание четвертое
+driverquery > DRIVERS
+sort /r DRIVERS
